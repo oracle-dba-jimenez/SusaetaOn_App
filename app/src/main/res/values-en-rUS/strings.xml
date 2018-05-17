@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SusaetaOn</string>
+    <string name="goToLibrary">Go to Library</string>
+    <string name="validateCode">Validate Serial Code</string>
+    <string name="validate">Validate</string>
+</resources>

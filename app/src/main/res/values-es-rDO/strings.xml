@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SusaetaOn</string>
     <string name="goToLibrary">Ir a la biblioteca</string>
     <string name="validateCode">Validar código</string>
-    <string name="scholarshipPeriod" translatable="false">2017 - 2018</string>
     <string name="validate">Validar</string>
 </resources>

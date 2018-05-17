@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".serial_code_validator">
 
 
     <ImageView
@@ -55,33 +55,16 @@
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="92dp"
-        android:background="@color/button_color"
-        android:text="@string/validateCode"
-        android:textColor="#FFFFFF"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:contentDescription="@null"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="394dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:background="@color/button_color"
-        android:text="@string/goToLibrary"
+        android:contentDescription="@null"
+        android:text="@string/validate"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold"
-        android:contentDescription="@null"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -97,4 +80,19 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="165dp" />
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:text="L429OKT1XJBBB2R" />
 </android.support.constraint.ConstraintLayout>
