@@ -16,8 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".serial_code_validator" />
-        <activity android:name=".library_collection"></activity>
+        <activity android:name=".SerialCodeValidationActivity" />
+        <activity android:name=".LibraryCollection"></activity>
     </application>
 
 </manifest>

@@ -3,10 +3,10 @@ package com.susaeta.susaetaon
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
-class library_collection : AppCompatActivity() {
+class SerialCodeValidationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_library_collection)
+        setContentView(R.layout.activity_serial_code_validator)
     }
 }
