@@ -4,10 +4,9 @@ package com.susaeta.susaetaon.controllers
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.susaeta.susaetaon.R
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_serial_code_validator.*
-import services.SusaetaRepositoryProvider
+import models.Book
+import viewModels.SerialCodeValidatorViewModel
 
 class SerialCodeValidationActivity : AppCompatActivity() {
 
@@ -15,18 +14,10 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_serial_code_validator)
 
+        val model = SerialCodeValidatorViewModel()
 
         validateButton.setOnClickListener({
-
-            val repository = SusaetaRepositoryProvider.provideSearchRepository()
-
-            repository.getCollectionBooks().observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe( {
-                        result -> print("Resultado:: trajo esta cantidad de registros: "+ result.items.count())
-                    }, {
-                        error -> error.printStackTrace()
-                    })
+            model.validateSerial( "PAOKM3HT00W11Y9")
         })
     }
 }

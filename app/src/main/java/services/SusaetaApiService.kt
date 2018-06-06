@@ -1,6 +1,6 @@
 package services
 
-import Utils.GeneralConstants
+import utils.GeneralConstants
 import io.reactivex.Observable
 import models.Result
 import retrofit2.Retrofit
@@ -10,7 +10,7 @@ import retrofit2.http.GET
 
 interface SusaetaApiService {
 
-    @GET("ords/susaetaon/archivos/coleccion/PAOKM3HT00W11Y9")
+    @GET(GeneralConstants.COLLECTION_INFO + "PAOKM3HT00W11Y9")
     fun getCollectionBooks(): Observable<Result>
 
     companion object Factory {
@@ -25,3 +25,4 @@ interface SusaetaApiService {
         }
     }
 }
+//PAOKM3HT00W11Y9

@@ -16,16 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val repository = SusaetaRepositoryProvider.provideSearchRepository()
-
-        repository.getCollectionBooks().observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe( {
-                    result -> Log.d("Resultado::",  "trajo esta cantidad de registros: "+ result.items.count())
-
-                }, {
-                    error -> print(error.message)
-                })
 
         goToLibraryButton.isEnabled = false
 
