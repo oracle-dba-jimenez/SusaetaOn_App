@@ -1,14 +1,10 @@
 package com.susaeta.susaetaon.controllers
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.support.v7.app.AppCompatActivity
 import com.susaeta.susaetaon.R
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import services.SusaetaRepositoryProvider
 
 class MainActivity : AppCompatActivity() {
 

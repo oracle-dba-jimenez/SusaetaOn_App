@@ -16,8 +16,14 @@ class SerialCodeValidationActivity : AppCompatActivity() {
 
         val model = SerialCodeValidatorViewModel()
 
+        //Validating the editText has been a text.
+       /* if (serialCodeFromEditText == "") {
+            validateButton.isEnabled = false
+        }*/
+
         validateButton.setOnClickListener({
-            model.validateSerial( "PAOKM3HT00W11Y9") {
+            model.validateSerial( serialEditText.text.toString()) {
+                println("Collection books has "+ it.count() +" books.")
               if (it.count() > 0 ) {
                   val serialToLibraryTransition = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
                   startActivity(serialToLibraryTransition)

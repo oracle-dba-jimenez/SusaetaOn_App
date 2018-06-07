@@ -1,11 +1,11 @@
 package com.susaeta.susaetaon.services
 
-import io.reactivex.Observable
 import com.susaeta.susaetaon.models.Result
+import io.reactivex.Observable
 
 class SusaetaRepository(val apiService: SusaetaApiService) {
 
-    fun getCollectionBooks() : Observable<Result> {
-        return apiService.getCollectionBooks()
+    fun getCollectionBooks(serial: String) : Observable<Result> {
+        return apiService.getCollectionBooks(serial)
     }
 }

@@ -7,11 +7,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface SusaetaApiService {
 
-    @GET(GeneralConstants.COLLECTION_INFO + "PAOKM3HT00W11Y9")
-    fun getCollectionBooks(): Observable<Result>
+    @GET(GeneralConstants.COLLECTION_INFO + "{serialCode}")
+    fun getCollectionBooks(@Path(value = "serialCode", encoded = true) serial: String): Observable<Result>
 
     companion object Factory {
         fun create(): SusaetaApiService {
