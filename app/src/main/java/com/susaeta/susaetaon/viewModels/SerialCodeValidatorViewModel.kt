@@ -1,28 +1,21 @@
-package viewModels
+package com.susaeta.susaetaon.viewModels
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import models.Book
+import com.susaeta.susaetaon.models.Book
 import services.SusaetaRepositoryProvider
 
 class SerialCodeValidatorViewModel {
 
-    lateinit var books: List<Book>
-
-    fun validateSerial(code: String): Boolean {
+    fun validateSerial(code: String, callback: (List<Book>) -> Unit) {
         val repository = SusaetaRepositoryProvider.provideSearchRepository()
-
-        books = mutableListOf<Book>()
 
         repository.getCollectionBooks().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ result ->
-                    this.books = result.items
+                    callback(result.items)
                 }, { error ->
                     error.printStackTrace()
                 })
-        return books.count()  > 0
     }
-
-    fun downloadThumnail
 }

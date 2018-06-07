@@ -1,4 +1,4 @@
-package models
+package com.susaeta.susaetaon.models
 
 import com.google.gson.annotations.SerializedName
 

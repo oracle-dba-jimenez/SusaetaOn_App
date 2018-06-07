@@ -1,7 +1,7 @@
-package services
+package com.susaeta.susaetaon.services
 
 import io.reactivex.Observable
-import models.Result
+import com.susaeta.susaetaon.models.Result
 
 class SusaetaRepository(val apiService: SusaetaApiService) {
 

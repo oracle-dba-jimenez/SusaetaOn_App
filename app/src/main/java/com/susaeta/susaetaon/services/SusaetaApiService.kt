@@ -1,8 +1,8 @@
-package services
+package com.susaeta.susaetaon.services
 
-import utils.GeneralConstants
+import com.susaeta.susaetaon.utils.GeneralConstants
 import io.reactivex.Observable
-import models.Result
+import com.susaeta.susaetaon.models.Result
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

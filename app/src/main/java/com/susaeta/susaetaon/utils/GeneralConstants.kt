@@ -1,4 +1,4 @@
-package utils
+package com.susaeta.susaetaon.utils
 
 interface GeneralConstants {
     companion object {
