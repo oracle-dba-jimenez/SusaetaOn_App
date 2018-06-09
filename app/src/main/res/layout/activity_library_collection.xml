@@ -11,8 +11,8 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="1199dp"
-        android:scaleType="centerCrop"
         android:contentDescription="@null"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -35,26 +35,26 @@
         app:srcCompat="@drawable/logo" />
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_width="803dp"
-        android:layout_height="972dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:fillViewport="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.463">
 
-        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/GridLayout1"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:orientation="horizontal"
-            android:rowCount="2"
-            tools:context=".GridXMLActivity"></GridLayout>
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical" />
+
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>

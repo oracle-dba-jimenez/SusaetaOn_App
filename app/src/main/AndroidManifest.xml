@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".controllers.SerialCodeValidationActivity" />
-        <activity android:name=".controllers.LibraryCollectionActivity"></activity>
+        <activity android:name=".controllers.LibraryCollectionActivity"/>
     </application>
 
 </manifest>

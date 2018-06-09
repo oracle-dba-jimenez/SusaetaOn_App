@@ -11,7 +11,8 @@ interface GeneralConstants {
 
 interface IntentPassIdentifiers {
     companion object {
-        const  val BOOK_COLLECTION = "book_collection"
+        const val BOOK_COLLECTION = "book_collection"
+        const val CONTEXT = "android_app_context"
     }
 }
 

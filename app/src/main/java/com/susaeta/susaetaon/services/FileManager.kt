@@ -3,6 +3,7 @@ package com.susaeta.susaetaon.services
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.google.common.io.Files
+import com.susaeta.susaetaon.utils.Utilities
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
@@ -10,11 +11,8 @@ import java.io.File
 
 class FileManager {
    companion object {
-       fun saveFileOnDevice(path: String, fileName: String, response: Response<ResponseBody>?, isImage: Bool) {
-           val clearFileName = fileName.split('/')
-           val newFileName = clearFileName.get(clearFileName.count()-1)
-
-           val file = File(path, newFileName)
+       fun saveFileOnDevice(path: String, fileName: String, response: Response<ResponseBody>?, isImage: Boolean) {
+           val file = File(path, Utilities.getNameFileFrom(fileName))
            file.createNewFile()
 
            if (isImage) { //For images
@@ -28,10 +26,7 @@ class FileManager {
                Files.asByteSink(file).write(response?.body()?.bytes())
            }
 
-           println("File saved -> $fileName")
+           println("File saved -> ${file.absoluteFile}")
        }
    }
 }
-
-//https://stackoverflow.com/questions/7769806/convert-bitmap-to-file/31746927
-//https://stackoverflow.com/questions/35522341/retrofit-2-download-image-and-save-to-folder

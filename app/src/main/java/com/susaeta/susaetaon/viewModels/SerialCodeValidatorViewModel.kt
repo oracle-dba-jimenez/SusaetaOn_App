@@ -30,16 +30,16 @@ class SerialCodeValidatorViewModel {
         repository.getCollectionBooks(code).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ result ->
-                    callback(result.items)
                     for (book: Book in result.items) {
                         downloadServerFile(book.thumbnailImageName, true)
                     }
+                    callback(result.items)
                 }, { error ->
                     println(ErrorMessage.INVALID_API_URL + error.printStackTrace())
                 })
     }
 
-    private fun downloadServerFile(name: String, isImage: Bool) {
+    private fun downloadServerFile(name: String, isImage: Boolean) {
         repository.downloadFileFromServer(name).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
                 //println("File donwloading ... $name")
