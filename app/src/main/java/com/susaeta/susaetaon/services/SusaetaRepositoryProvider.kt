@@ -1,7 +1,7 @@
 package com.susaeta.susaetaon.services
 
 object SusaetaRepositoryProvider {
-    fun provideSearchRepository(): SusaetaRepository {
-        return SusaetaRepository(SusaetaApiService.Factory.create())
+    fun searchRepository(): SusaetaRepository {
+        return SusaetaRepository(SusaetaApiService.create())
     }
 }
