@@ -8,3 +8,17 @@ interface GeneralConstants {
         const val BOOK_PATH = "application/uploads/2014/12/" //"libros/"
     }
 }
+
+interface IntentPassIdentifiers {
+    companion object {
+        const  val BOOK_COLLECTION = "book_collection"
+    }
+}
+
+interface ErrorMessage {
+    companion object {
+        const val CANT_DOWNLOAD_FILE = "Cant' download file, please check."
+        const val INVALID_API_URL    = "Invalid path : "
+        const val INVALID_CODE_ESP   = "El código proporcionado no es valido favor verificar."
+    }
+}

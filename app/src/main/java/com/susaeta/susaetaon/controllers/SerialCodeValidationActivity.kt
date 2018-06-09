@@ -3,15 +3,16 @@ package com.susaeta.susaetaon.controllers
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.widget.Toast
 import com.susaeta.susaetaon.R
-import kotlinx.android.synthetic.main.activity_serial_code_validator.*
+import com.susaeta.susaetaon.utils.ErrorMessage
+import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.SerialCodeValidatorViewModel
+import kotlinx.android.synthetic.main.activity_serial_code_validator.*
+import java.io.Serializable
 
 class SerialCodeValidationActivity : AppCompatActivity() {
 
@@ -25,13 +26,13 @@ class SerialCodeValidationActivity : AppCompatActivity() {
 
         validateButton.setOnClickListener({
             model.validateSerial( serialEditText.text.toString()) {
-                println("Collection books has "+ it.count() +" books.")
+                println("Collection books has $it.count()  books.")
                 if (it.count() > 0 ) {
-                    val serialToLibraryTransition = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
-                    startActivity(serialToLibraryTransition)
+                    val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
+                    serialToLibraryTransitionIntent.putExtra(IntentPassIdentifiers.BOOK_COLLECTION, it as Serializable)
+                    startActivity(serialToLibraryTransitionIntent)
                 } else {
-                    displayError("El código proporcionado no es valido favor verificar.")
-
+                    displayError(ErrorMessage.INVALID_CODE_ESP)
                 }
             }
         })
