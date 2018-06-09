@@ -5,27 +5,30 @@ import android.graphics.BitmapFactory
 import com.google.common.io.Files
 import okhttp3.ResponseBody
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 
 class FileManager {
    companion object {
-       fun saveFileOnDevice(path: String, fileName: String, response: Response<ResponseBody>?) {
+       fun saveFileOnDevice(path: String, fileName: String, response: Response<ResponseBody>?, isImage: Bool) {
            val clearFileName = fileName.split('/')
            val newFileName = clearFileName.get(clearFileName.count()-1)
 
            val file = File(path, newFileName)
-
            file.createNewFile()
-           //Files.asByteSink(file).write(response?.body()?.bytes())
 
-           //For image
-           val inputString = response?.body()?.byteStream()
-           val bitmap = BitmapFactory.decodeStream(inputString)
-           val outStream = FileOutputStream(file)
-           bitmap.compress(Bitmap.CompressFormat.PNG, 0, outStream)
-           Files.asByteSink(file).writeFrom(outStream.)
-           println("File saved: $fileName")
+           if (isImage) { //For images
+               val inputString = response?.body()?.byteStream()
+               val bitmap = BitmapFactory.decodeStream(inputString)
+               val outStream = ByteArrayOutputStream()
+               bitmap.compress(Bitmap.CompressFormat.PNG, 0, outStream)
+
+               Files.asByteSink(file).write(outStream.toByteArray())
+           }else {
+               Files.asByteSink(file).write(response?.body()?.bytes())
+           }
+
+           println("File saved -> $fileName")
        }
    }
 }

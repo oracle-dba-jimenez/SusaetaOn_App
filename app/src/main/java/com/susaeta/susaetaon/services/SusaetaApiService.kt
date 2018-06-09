@@ -10,6 +10,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 interface SusaetaApiService {
 
@@ -29,6 +30,6 @@ interface SusaetaApiService {
     @GET(GeneralConstants.COLLECTION_INFO + "{serialCode}")
     fun getCollectionBooks(@Path(value = "serialCode", encoded = true) serial: String): Observable<Result>
 
-    @GET(GeneralConstants.BOOK_PATH + "{bookName}")
-    fun downloadFileFromServer(@Path(value = "bookName", encoded = true) fileName: String): Call<ResponseBody>
+    @GET
+    fun downloadFileFromServer(@Url fileName: String): Call<ResponseBody>
 }

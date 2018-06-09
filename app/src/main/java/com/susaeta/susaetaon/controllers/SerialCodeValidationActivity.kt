@@ -25,7 +25,7 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         //TODO Validar que el textEdit tenga texto para activar el button.
 
         validateButton.setOnClickListener({
-            model.validateSerial( serialEditText.text.toString()) {
+            model.validateSerial("L429OKT1XJBBB2R" /*serialEditText.text.toString()*/) {
                 println("Collection books has $it.count()  books.")
                 if (it.count() > 0 ) {
                     val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)

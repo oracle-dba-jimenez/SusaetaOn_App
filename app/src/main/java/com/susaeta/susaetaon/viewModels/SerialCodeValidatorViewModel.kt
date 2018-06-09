@@ -32,18 +32,18 @@ class SerialCodeValidatorViewModel {
                 .subscribe({ result ->
                     callback(result.items)
                     for (book: Book in result.items) {
-                        downloadServerFile(book.thumbnailImageName)
+                        downloadServerFile(book.thumbnailImageName, true)
                     }
                 }, { error ->
                     println(ErrorMessage.INVALID_API_URL + error.printStackTrace())
                 })
     }
 
-    private fun downloadServerFile(name: String) {
+    private fun downloadServerFile(name: String, isImage: Bool) {
         repository.downloadFileFromServer(name).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                println("File donwloading ... $name")
-                FileManager.saveFileOnDevice(context.filesDir.path, name, response)
+                //println("File donwloading ... $name")
+                FileManager.saveFileOnDevice(context.filesDir.path, name, response, isImage)
             }
 
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
