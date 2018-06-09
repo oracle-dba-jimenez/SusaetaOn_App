@@ -3,6 +3,7 @@ package com.susaeta.susaetaon.viewModels
 import android.content.Context
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.services.FileManager
+import com.susaeta.susaetaon.services.SusaetaRepository
 import com.susaeta.susaetaon.services.SusaetaRepositoryProvider
 import com.susaeta.susaetaon.utils.ErrorMessage
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,10 +15,11 @@ import retrofit2.Response
 
 class SerialCodeValidatorViewModel {
     private val context: Context
-    private val repository = SusaetaRepositoryProvider.searchRepository()
+    private val repository: SusaetaRepository
 
     constructor(context: Context) {
         this.context = context
+        this.repository = SusaetaRepositoryProvider.searchRepository()
     }
 
     fun validateSerial(code: String, callback: (List<Book>) -> Unit) {
@@ -40,7 +42,8 @@ class SerialCodeValidatorViewModel {
     private fun downloadServerFile(name: String) {
         repository.downloadFileFromServer(name).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                FileManager.saveFileOnDevice(context, response, name)
+                println("File donwloading ... $name")
+                FileManager.saveFileOnDevice(context.filesDir.path, name, response)
             }
 
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
