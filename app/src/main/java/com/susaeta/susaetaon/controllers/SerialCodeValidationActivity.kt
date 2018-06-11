@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.utils.ErrorMessage
@@ -26,6 +27,7 @@ class SerialCodeValidationActivity : AppCompatActivity() {
 
         validateButton.setOnClickListener({
             model.validateSerial("L429OKT1XJBBB2R" /*serialEditText.text.toString()*/) {
+                progressBar.visibility = ProgressBar.VISIBLE
                 println("Collection books has $it.count()  books.")
                 if (it.count() > 0 ) {
                     val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
@@ -35,6 +37,7 @@ class SerialCodeValidationActivity : AppCompatActivity() {
                     displayError(ErrorMessage.INVALID_CODE_ESP)
                 }
             }
+            progressBar.visibility = ProgressBar.INVISIBLE
         })
     }
 

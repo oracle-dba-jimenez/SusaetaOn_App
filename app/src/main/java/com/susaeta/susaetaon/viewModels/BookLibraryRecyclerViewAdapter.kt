@@ -11,11 +11,10 @@ import android.widget.ImageButton
 import com.susaeta.susaetaon.view.ItemFragment.OnListFragmentInteractionListener
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
+import com.susaeta.susaetaon.services.FileManager
 import com.susaeta.susaetaon.utils.Utilities
 
 import kotlinx.android.synthetic.main.fragment_item.view.*
-import java.io.File
-import java.net.URI
 
 class BookLibraryRecyclerViewAdapter(
         private val mValues: List<Book>,
@@ -43,11 +42,10 @@ class BookLibraryRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
 
-        //TODO: Change to local directoy file
-      //  holder.mImageThumbnail.setImageURI(Uri.fromFile(File(URI(item.thumbnailImageName))))
-
         val nameFile = "/" + Utilities.getNameFileFrom(item.thumbnailImageName)
-        holder.mImageThumbnail.setImageURI(Uri.parse(context.filesDir.path + nameFile))
+        val imageLocation = FileManager.getRelativeLocationPath(context.filesDir.path + nameFile)
+
+        holder.mImageThumbnail.setImageURI(imageLocation)
 
         with(holder.mView) {
             tag = item

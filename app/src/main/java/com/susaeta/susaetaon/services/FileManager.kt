@@ -2,6 +2,7 @@ package com.susaeta.susaetaon.services
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import com.google.common.io.Files
 import com.susaeta.susaetaon.utils.Utilities
 import okhttp3.ResponseBody
@@ -11,7 +12,7 @@ import java.io.File
 
 class FileManager {
    companion object {
-       fun saveFileOnDevice(path: String, fileName: String, response: Response<ResponseBody>?, isImage: Boolean) {
+       fun saveFileOnDevice(path: String, fileName: String, response: Response<ResponseBody>?, isImage: Boolean): String {
            val file = File(path, Utilities.getNameFileFrom(fileName))
            file.createNewFile()
 
@@ -27,6 +28,11 @@ class FileManager {
            }
 
            println("File saved -> ${file.absoluteFile}")
+           return file.absoluteFile.path
+       }
+
+       fun getRelativeLocationPath(imageName: String) : Uri {
+           return Uri.parse(imageName)
        }
    }
 }
