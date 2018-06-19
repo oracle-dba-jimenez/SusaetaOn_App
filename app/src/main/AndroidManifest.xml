@@ -22,9 +22,6 @@
         </activity>
         <activity android:name=".controllers.SerialCodeValidationActivity" />
         <activity android:name=".controllers.LibraryCollectionActivity"/>
-
-        <receiver android:name="com.susaeta.susaetaon.services.LibraryReceiver"></receiver>
-
     </application>
 
 </manifest>

@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         goToLibraryButton.isEnabled = false
 
         validateCodeButton.setOnClickListener({
