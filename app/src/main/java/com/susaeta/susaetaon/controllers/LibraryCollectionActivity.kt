@@ -45,14 +45,14 @@ class LibraryCollectionActivity : AppCompatActivity() {
             }
         }
 
-        registerReceiver(onComplete, IntentFilter("asdf"))
+        //registerReceiver(onComplete, IntentFilter("asdf"))
 
 
         for (book in listOfBooks) {
             viewModel.downloadServerFile( book.thumbnailImageName , true)
         }
 
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onComplete)
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(onComplete)
     }
 
     override fun onDestroy() {
