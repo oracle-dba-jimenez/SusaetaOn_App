@@ -32,4 +32,7 @@ interface SusaetaApiService {
 
     @GET
     fun downloadFileFromServer(@Url fileName: String): Call<ResponseBody>
+
+    @GET(GeneralConstants.BOOK_PATH+"{fileName}")
+    fun downloadPDFFromServer(@Path(value = "fileName", encoded = true) fileName: String): Call<ResponseBody>
 }

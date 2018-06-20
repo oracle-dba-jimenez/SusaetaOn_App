@@ -14,14 +14,6 @@ class LibraryRecycleTouchListener(context: Context, recyclerView: RecyclerView, 
            override fun onSingleTapUp(e: MotionEvent): Boolean {
                 return true
             }
-
-            override fun onLongPress(e: MotionEvent) {
-                val child = recyclerView.findChildViewUnder(e.x, e.y)
-                if (child != null && clickListener != null) {
-                    clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child))
-                }
-            }
-
         })
     }
 
@@ -34,11 +26,6 @@ class LibraryRecycleTouchListener(context: Context, recyclerView: RecyclerView, 
         return false
     }
 
-    override fun onTouchEvent(rv: RecyclerView?, e: MotionEvent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onTouchEvent(rv: RecyclerView?, e: MotionEvent?) { }
+    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) { }
 }

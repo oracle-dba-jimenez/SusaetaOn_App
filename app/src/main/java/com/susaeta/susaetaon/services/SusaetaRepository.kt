@@ -14,4 +14,8 @@ class SusaetaRepository(val apiService: SusaetaApiService) {
     fun downloadFileFromServer(fileName: String) : Call<ResponseBody> {
         return apiService.downloadFileFromServer(fileName)
     }
+
+    fun downloadPDFFromServer(fileName: String): Call<ResponseBody> {
+        return apiService.downloadPDFFromServer(fileName)
+    }
 }

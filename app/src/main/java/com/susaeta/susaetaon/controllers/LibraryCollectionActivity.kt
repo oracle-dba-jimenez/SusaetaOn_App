@@ -11,8 +11,13 @@ import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
+import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_library_collection.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LibraryCollectionActivity : AppCompatActivity() {
 
@@ -21,11 +26,13 @@ class LibraryCollectionActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     lateinit var listOfBooks: List<Book>
+    lateinit var viewModel: LibraryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_library_collection)
 
+        viewModel = LibraryViewModel(baseContext)
         listOfBooks = intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>
 
         var spanCountColumns = 2
@@ -46,21 +53,28 @@ class LibraryCollectionActivity : AppCompatActivity() {
 
         recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, recyclerView, object: ClickListener {
             override fun onClick(view: View, position: Int) {
-                Toast.makeText(getApplicationContext(), listOfBooks.get(position).fileName + " is selected!", Toast.LENGTH_SHORT).show();
+                downloadPDF(position, view)
+            }
+        } ))
+    }
+
+    private fun downloadPDF(position: Int, view: View) {
+        viewModel.downloadServerFile(listOfBooks.get(position).fileName, false).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+                Toast.makeText(getApplicationContext(), listOfBooks.get(position).fileName + " can't download :/ !", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
                 if (view.downloadButton.visibility == View.VISIBLE) {
                     view.downloadButton.visibility = View.INVISIBLE
                 }
             }
-
-            override fun onLongClick(view: View, position: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        } ))
+        })
     }
 }
 
-
+/// Interface ClickListener
 interface ClickListener {
     fun onClick(view: View, position: Int)
-    fun onLongClick(view: View, position: Int)
 }
+

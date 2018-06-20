@@ -22,6 +22,10 @@ class LibraryViewModel {
     }
 
     fun downloadServerFile(name: String, isImage: Boolean): Call<ResponseBody> {
-        return repository.downloadFileFromServer(name)
+        if (isImage) {
+            return repository.downloadFileFromServer(name)
+        } else {
+            return repository.downloadPDFFromServer(name)
+        }
     }
 }
