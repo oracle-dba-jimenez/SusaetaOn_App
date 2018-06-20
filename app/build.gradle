@@ -48,5 +48,7 @@ dependencies {
 
     // Glide: image loading and memory and disk caching.
     implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+    //PDFViewer
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

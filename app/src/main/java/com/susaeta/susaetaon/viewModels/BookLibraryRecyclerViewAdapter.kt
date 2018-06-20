@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_item.view.*
 class BookLibraryRecyclerViewAdapter(
         private val mValues: List<Book>,
         private val mListener: OnListFragmentInteractionListener?,
-        private val context: Context)
+        context: Context)
     : RecyclerView.Adapter<BookLibraryRecyclerViewAdapter.ViewHolder>() {
 
     private val viewModel: LibraryViewModel
@@ -37,12 +37,11 @@ class BookLibraryRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        Glide.with(holder.mView).load(item.thumbnailImageName).into(holder.mImageThumbnail)
+        // Displaying the thumbnail image for this cell
+        Glide.with(holder.mView).load(mValues[position].thumbnailImageName).into(holder.mImageThumbnail)
 
-       // holder.mView.
         with(holder.mView) {
-            tag = item
+            tag = mValues[position]
             setOnClickListener(mOnClickListener)
         }
     }
