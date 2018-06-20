@@ -1,20 +1,22 @@
 package com.susaeta.susaetaon.viewModels
 
 import android.content.Context
-import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-
-import com.susaeta.susaetaon.view.ItemFragment.OnListFragmentInteractionListener
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.services.FileManager
+import com.susaeta.susaetaon.utils.ErrorMessage
 import com.susaeta.susaetaon.utils.Utilities
-
+import com.susaeta.susaetaon.view.ItemFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_item.view.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BookLibraryRecyclerViewAdapter(
         private val mValues: List<Book>,
@@ -22,6 +24,7 @@ class BookLibraryRecyclerViewAdapter(
         private val context: Context)
     : RecyclerView.Adapter<BookLibraryRecyclerViewAdapter.ViewHolder>() {
 
+    private val viewModel: LibraryViewModel
     private val mOnClickListener: View.OnClickListener
 
     init {
@@ -31,6 +34,8 @@ class BookLibraryRecyclerViewAdapter(
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
         }
+
+        viewModel = LibraryViewModel(context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,11 +46,21 @@ class BookLibraryRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
+        viewModel.downloadServerFile( item.thumbnailImageName , true).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
+                println("File donwloading ... ${item.thumbnailImageName}")
+                FileManager.saveFileOnDevice(context.filesDir.path, item.thumbnailImageName, response, true)
 
-        val nameFile = "/" + Utilities.getNameFileFrom(item.thumbnailImageName)
-        val imageLocation = FileManager.getRelativeLocationPath(context.filesDir.path + nameFile)
+                println("Refreshing...")
+                val nameFile = "/" + Utilities.getNameFileFrom(item.thumbnailImageName)
+                val imageLocation = FileManager.getRelativeLocationPath(context.filesDir.path + nameFile)
+                holder.mImageThumbnail.setImageURI(imageLocation)
+            }
 
-        holder.mImageThumbnail.setImageURI(imageLocation)
+            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+                println(ErrorMessage.CANT_DOWNLOAD_FILE)
+            }
+        })
 
         with(holder.mView) {
             tag = item
