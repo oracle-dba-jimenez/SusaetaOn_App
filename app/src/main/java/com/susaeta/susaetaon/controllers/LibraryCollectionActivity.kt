@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
+import com.susaeta.susaetaon.services.FileManager
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
 import com.susaeta.susaetaon.viewModels.LibraryViewModel
@@ -36,7 +37,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         listOfBooks = intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>
 
         var spanCountColumns = 2
-        if (getResources().getConfiguration().orientation  == Configuration.ORIENTATION_LANDSCAPE) {
+        if (resources.configuration.orientation  == Configuration.ORIENTATION_LANDSCAPE) {
             spanCountColumns = 4
         }
 
@@ -53,18 +54,22 @@ class LibraryCollectionActivity : AppCompatActivity() {
 
         recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, recyclerView, object: ClickListener {
             override fun onClick(view: View, position: Int) {
+                println("Download click tapped.")
                 downloadPDF(position, view)
             }
         } ))
     }
 
     private fun downloadPDF(position: Int, view: View) {
-        viewModel.downloadServerFile(listOfBooks.get(position).fileName, false).enqueue(object : Callback<ResponseBody> {
+        viewModel.downloadServerFile("http://susaetaon.com:8080/libros/978994512517.pdf").enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
-                Toast.makeText(getApplicationContext(), listOfBooks.get(position).fileName + " can't download :/ !", Toast.LENGTH_SHORT).show()
+                println("Download error.")
+                Toast.makeText(applicationContext, listOfBooks.get(position).fileName + " can't download :/ !", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
+                println("Download successful.")
+                FileManager.saveFileOnDevice(baseContext.filesDir.path, listOfBooks.get(position).fileName, response, false)
                 if (view.downloadButton.visibility == View.VISIBLE) {
                     view.downloadButton.visibility = View.INVISIBLE
                 }

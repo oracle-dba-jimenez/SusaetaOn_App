@@ -18,9 +18,10 @@ class FileManager {
 
            if (isImage) { //For images
                val inputString = response?.body()?.byteStream()
-               val bitmap = BitmapFactory.decodeStream(inputString)
+               var bitmap = BitmapFactory.decodeStream(inputString)
                val outStream = ByteArrayOutputStream()
                bitmap.compress(Bitmap.CompressFormat.PNG, 0, outStream)
+               bitmap.recycle()
 
                Files.asByteSink(file).write(outStream.toByteArray())
            }else {

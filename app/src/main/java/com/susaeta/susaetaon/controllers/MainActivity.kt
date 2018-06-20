@@ -14,14 +14,14 @@ class MainActivity : AppCompatActivity() {
 
         goToLibraryButton.isEnabled = false
 
-        validateCodeButton.setOnClickListener({
+        validateCodeButton.setOnClickListener {
             val goToLibraryIntent = Intent(this@MainActivity, SerialCodeValidationActivity::class.java)
             startActivity(goToLibraryIntent)
-        })
+        }
 
-        goToLibraryButton.setOnClickListener({
+        goToLibraryButton.setOnClickListener {
             val goToLibraryIntent = Intent(this@MainActivity, LibraryCollectionActivity::class.java)
             startActivity(goToLibraryIntent)
-        })
+        }
     }
 }

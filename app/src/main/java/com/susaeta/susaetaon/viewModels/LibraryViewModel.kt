@@ -21,11 +21,7 @@ class LibraryViewModel {
         this.repository = SusaetaRepositoryProvider.searchRepository()
     }
 
-    fun downloadServerFile(name: String, isImage: Boolean): Call<ResponseBody> {
-        if (isImage) {
-            return repository.downloadFileFromServer(name)
-        } else {
-            return repository.downloadPDFFromServer(name)
-        }
+    fun downloadServerFile(name: String): Call<ResponseBody> {
+        return  repository.downloadPDFFromServer(name)
     }
 }

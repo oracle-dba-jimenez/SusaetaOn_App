@@ -30,9 +30,6 @@ interface SusaetaApiService {
     @GET(GeneralConstants.COLLECTION_INFO + "{serialCode}")
     fun getCollectionBooks(@Path(value = "serialCode", encoded = true) serial: String): Observable<Result>
 
-    @GET
-    fun downloadFileFromServer(@Url fileName: String): Call<ResponseBody>
-
-    @GET(GeneralConstants.BOOK_PATH+"{fileName}")
+    @GET(GeneralConstants.BOOK_PATH + "{fileName}")
     fun downloadPDFFromServer(@Path(value = "fileName", encoded = true) fileName: String): Call<ResponseBody>
 }
