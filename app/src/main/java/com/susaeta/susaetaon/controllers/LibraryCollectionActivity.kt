@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.Toast
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_library_collection.*
+import kotlinx.android.synthetic.main.fragment_item.view.*
 
 class LibraryCollectionActivity : AppCompatActivity() {
 
@@ -29,6 +32,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         if (getResources().getConfiguration().orientation  == Configuration.ORIENTATION_LANDSCAPE) {
             spanCountColumns = 4
         }
+
         val gridLayout = GridLayoutManager(baseContext, spanCountColumns)
         gridLayout.paddingRight.and(40)
         viewManager = gridLayout
@@ -39,5 +43,24 @@ class LibraryCollectionActivity : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, recyclerView, object: ClickListener {
+            override fun onClick(view: View, position: Int) {
+                Toast.makeText(getApplicationContext(), listOfBooks.get(position).fileName + " is selected!", Toast.LENGTH_SHORT).show();
+                if (view.downloadButton.visibility == View.VISIBLE) {
+                    view.downloadButton.visibility = View.INVISIBLE
+                }
+            }
+
+            override fun onLongClick(view: View, position: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        } ))
     }
+}
+
+
+interface ClickListener {
+    fun onClick(view: View, position: Int)
+    fun onLongClick(view: View, position: Int)
 }

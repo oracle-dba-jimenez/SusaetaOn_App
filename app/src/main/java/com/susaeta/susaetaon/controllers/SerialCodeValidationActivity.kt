@@ -24,7 +24,7 @@ class SerialCodeValidationActivity : AppCompatActivity() {
 
         //TODO Validar que el textEdit tenga texto para activar el button.
 
-        validateButton.setOnClickListener({
+        validateButton.setOnClickListener {
             model.validateSerial("L429OKT1XJBBB2R" /*serialEditText.text.toString()*/) {
                 progressBar.visibility = ProgressBar.VISIBLE
                 println("Collection books has $it.count()  books.")
@@ -37,7 +37,7 @@ class SerialCodeValidationActivity : AppCompatActivity() {
                 }
             }
             progressBar.visibility = ProgressBar.INVISIBLE
-        })
+        }
     }
 
     private fun displayError(message: String) {
