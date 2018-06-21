@@ -31,7 +31,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         viewModel = LibraryViewModel(baseContext)
         listOfBooks = intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>
 
-        var spanCountColumns = 2
+        var spanCountColumns = 3
         if (resources.configuration.orientation  == Configuration.ORIENTATION_LANDSCAPE) {
             spanCountColumns = 4
         }

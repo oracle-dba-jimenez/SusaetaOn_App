@@ -1,5 +1,6 @@
 package com.susaeta.susaetaon.services
 
+import android.content.Context
 import android.net.Uri
 import com.google.common.io.Files
 import com.susaeta.susaetaon.utils.Utilities
@@ -16,6 +17,10 @@ class FileManager {
 
            println("File saved -> ${file.absoluteFile}")
            return file.absoluteFile.path
+       }
+
+       fun findFileOnStorage(context: Context): List<String> {
+           return context.filesDir.list().asList()
        }
    }
 }

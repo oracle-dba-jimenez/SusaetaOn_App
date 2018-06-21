@@ -13,6 +13,8 @@ class DocumentViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document_viewer)
         val pdfUrlPath = intent.extras.get(IntentPassIdentifiers.PDF_FILE_PATH) as String
+
+        println("Opening file...  $pdfUrlPath")
         pdfView.fromFile(File(pdfUrlPath)).enableSwipe(true)
                 .swipeHorizontal(true)
                 .spacing(10)
@@ -20,3 +22,4 @@ class DocumentViewerActivity : AppCompatActivity() {
                 .load()
     }
 }
+///data/user/0/com.susaeta.susaetaon/files/978994512559.pdf
