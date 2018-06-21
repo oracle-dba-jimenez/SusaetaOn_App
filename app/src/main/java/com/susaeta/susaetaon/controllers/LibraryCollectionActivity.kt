@@ -37,7 +37,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         }
 
         val gridLayout = GridLayoutManager(baseContext, spanCountColumns)
-        gridLayout.paddingRight.and(40)
+      //  gridLayout.paddingRight.and(20)
         viewManager = gridLayout
         viewAdapter = BookLibraryRecyclerViewAdapter(listOfBooks, null, baseContext)
 
