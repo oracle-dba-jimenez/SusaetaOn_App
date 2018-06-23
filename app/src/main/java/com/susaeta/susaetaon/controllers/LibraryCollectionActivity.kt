@@ -2,17 +2,20 @@ package com.susaeta.susaetaon.controllers
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.LightingColorFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.susaeta.susaetaon.R
+import com.susaeta.susaetaon.R.color.green_button
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
 import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_library_collection.*
+import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
 class LibraryCollectionActivity : AppCompatActivity() {
@@ -50,10 +53,12 @@ class LibraryCollectionActivity : AppCompatActivity() {
         //TODO: Intentar sacar este listener de aqui y delegar esta responsabilidad.
         recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, object: ClickListener {
             override fun onClick(view: View, position: Int) {
+                progressBarOnThumbnail.visibility = View.VISIBLE
                 println("Download click tapped.")
                 if (view.downloadButton.visibility == View.VISIBLE) {
                     viewModel.downloadServerFile(listOfBooks.get(position).fileName)
                     view.downloadButton.visibility = View.INVISIBLE
+                    progressBarOnThumbnail.visibility = View.INVISIBLE
                 } else {
                     val displayDocumentViewer = Intent(this@LibraryCollectionActivity, DocumentViewerActivity::class.java )
                     displayDocumentViewer.putExtra(IntentPassIdentifiers.PDF_FILE_PATH, baseContext.filesDir.path + "/"+ listOfBooks.get(position).fileName )
