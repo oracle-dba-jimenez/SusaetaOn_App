@@ -32,4 +32,21 @@
         app:layout_constraintEnd_toEndOf="@+id/thumbnailImage"
         app:layout_constraintStart_toStartOf="@+id/thumbnailImage" />
 
+    <ProgressBar
+        android:id="@+id/progressBarBook"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:max="@android:integer/config_longAnimTime"
+        android:progress="@android:integer/status_bar_notification_info_maxnum"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/downloadButton"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnailImage"
+        app:layout_constraintStart_toStartOf="@+id/thumbnailImage"
+        app:layout_constraintTop_toTopOf="@+id/thumbnailImage" />
+
 </android.support.constraint.ConstraintLayout>

@@ -35,8 +35,8 @@ class SerialCodeValidationActivity : AppCompatActivity() {
                 } else {
                     displayError(ErrorMessage.INVALID_CODE_ESP)
                 }
+                progressBar.visibility = ProgressBar.INVISIBLE
             }
-            progressBar.visibility = ProgressBar.INVISIBLE
         }
     }
 

@@ -2,6 +2,8 @@ package com.susaeta.susaetaon.controllers
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -16,6 +18,7 @@ import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_library_collection.*
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
+
 
 class LibraryCollectionActivity : AppCompatActivity() {
 
@@ -32,6 +35,8 @@ class LibraryCollectionActivity : AppCompatActivity() {
 
         viewModel = LibraryViewModel(baseContext)
         listOfBooks = intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>
+
+      //  setGreenColorToProgressBar()
 
         var spanCountColumns = 3
         if (resources.configuration.orientation  == Configuration.ORIENTATION_LANDSCAPE) {
@@ -54,7 +59,8 @@ class LibraryCollectionActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int) {
                 println("Download click tapped.")
                 if (view.downloadButton.visibility == View.VISIBLE) {
-                    viewModel.downloadServerFile(listOfBooks.get(position).fileName, downloadButton)
+                    view.progressBarBook.visibility = View.VISIBLE
+                    viewModel.downloadServerFile(listOfBooks.get(position).fileName, view.downloadButton, view.progressBarBook)
                     Toast.makeText(this@LibraryCollectionActivity, "Downloading the file...", Toast.LENGTH_LONG)
 
                 } else {
@@ -63,6 +69,12 @@ class LibraryCollectionActivity : AppCompatActivity() {
                     startActivity(displayDocumentViewer)
                 }
             }}))
+    }
+
+    private fun setGreenColorToProgressBar() {
+        val progressDrawable = progressBarBook.indeterminateDrawable.mutate()
+        progressDrawable.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN)
+        progressBarBook.indeterminateDrawable = progressDrawable
     }
 }
 
