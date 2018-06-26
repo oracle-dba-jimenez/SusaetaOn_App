@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Toast
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
 import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_library_collection.*
+import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
 class LibraryCollectionActivity : AppCompatActivity() {
@@ -52,8 +54,9 @@ class LibraryCollectionActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int) {
                 println("Download click tapped.")
                 if (view.downloadButton.visibility == View.VISIBLE) {
-                    viewModel.downloadServerFile(listOfBooks.get(position).fileName)
-                    view.downloadButton.visibility = View.INVISIBLE
+                    viewModel.downloadServerFile(listOfBooks.get(position).fileName, downloadButton)
+                    Toast.makeText(this@LibraryCollectionActivity, "Downloading the file...", Toast.LENGTH_LONG)
+
                 } else {
                     val displayDocumentViewer = Intent(this@LibraryCollectionActivity, DocumentViewerActivity::class.java )
                     displayDocumentViewer.putExtra(IntentPassIdentifiers.PDF_FILE_PATH, baseContext.filesDir.path + "/"+ listOfBooks.get(position).fileName )
