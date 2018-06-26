@@ -13,7 +13,8 @@
         android:layout_height="300dp"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/bg_tutoriales"
-        tools:layout_editor_absoluteX="50dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/downloadButton"

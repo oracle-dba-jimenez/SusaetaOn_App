@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_library_collection.*
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
-
 class LibraryCollectionActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
