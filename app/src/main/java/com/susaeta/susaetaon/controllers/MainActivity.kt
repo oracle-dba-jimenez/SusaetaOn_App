@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.susaeta.susaetaon.R
+import com.susaeta.susaetaon.utils.IntentPassIdentifiers
+import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +15,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        goToLibraryButton.isEnabled = false
+        val localBooks = LibraryViewModel(baseContext).getBooksOnLocalFileSystem()
+        if (localBooks.isEmpty()) {
+            goToLibraryButton.isEnabled = false
+        }
 
         validateCodeButton.setOnClickListener {
             val goToLibraryIntent = Intent(this@MainActivity, SerialCodeValidationActivity::class.java)
@@ -21,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         goToLibraryButton.setOnClickListener {
             val goToLibraryIntent = Intent(this@MainActivity, LibraryCollectionActivity::class.java)
+            goToLibraryIntent.putExtra(IntentPassIdentifiers.BOOK_COLLECTION, localBooks as Serializable)
             startActivity(goToLibraryIntent)
         }
     }

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ProgressBar
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.R.color.green_button
 import com.susaeta.susaetaon.models.Book
@@ -15,6 +16,7 @@ import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
 import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_library_collection.*
+import kotlinx.android.synthetic.main.activity_serial_code_validator.*
 import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
