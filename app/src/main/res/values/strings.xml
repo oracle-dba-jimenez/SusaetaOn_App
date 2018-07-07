@@ -4,4 +4,5 @@
     <string name="validateCode">Validar código</string>
     <string name="scholarshipPeriod" translatable="false">2017 - 2018</string>
     <string name="validate">Validar</string>
+    <string name="network_unavailable">No es posible establecer conexion de red</string>
 </resources>
