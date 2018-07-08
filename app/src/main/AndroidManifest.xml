@@ -24,7 +24,12 @@
         </activity>
         <activity android:name=".controllers.SerialCodeValidationActivity" />
         <activity android:name=".controllers.LibraryCollectionActivity" />
-        <activity android:name=".controllers.DocumentViewerActivity"></activity>
-    </application>
+        <activity android:name=".controllers.DocumentViewerActivity" />
 
+        <receiver android:name=".services.DownloadCompleteReceiver"  android:enabled="true">
+            <intent-filter>
+                <action android:name="Downloaded" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>

@@ -36,8 +36,9 @@ class LibraryViewModel {
             }
 
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                println("Download successful.")
+                println("Downloading....")
                 FileManager.saveFileOnDevice(context.filesDir.path, name, response)
+                context.sendBroadcast(Intent("Downloaded"))
             }
         })
     }
