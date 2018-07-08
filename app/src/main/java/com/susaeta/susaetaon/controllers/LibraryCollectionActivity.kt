@@ -59,11 +59,12 @@ class LibraryCollectionActivity : AppCompatActivity() {
                 println("Download click tapped.")
                 if (view.downloadButton.visibility == View.VISIBLE) {
                     viewModel.downloadServerFile(listOfBooks.get(position).fileName)
-                    view.downloadButton.visibility = View.INVISIBLE
+                 //   view.downloadButton.visibility = View.INVISIBLE
                     progressBarOnThumbnail.visibility = View.INVISIBLE
                 } else {
                     val displayDocumentViewer = Intent(this@LibraryCollectionActivity, DocumentViewerActivity::class.java )
-                    displayDocumentViewer.putExtra(IntentPassIdentifiers.PDF_FILE_PATH, baseContext.filesDir.path + "/"+ listOfBooks.get(position).fileName )
+                    displayDocumentViewer.putExtra(IntentPassIdentifiers.PDF_FILE_PATH,
+                            baseContext.filesDir.path + "/"+ listOfBooks.get(position).fileName )
                     startActivity(displayDocumentViewer)
                 }
             }}))

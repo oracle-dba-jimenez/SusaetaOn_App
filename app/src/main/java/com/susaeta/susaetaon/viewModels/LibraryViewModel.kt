@@ -29,6 +29,7 @@ class LibraryViewModel {
     }
 
     fun downloadServerFile(name: String) {
+
         repository.downloadPDFFromServer(name).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
                 println("Download error.")
