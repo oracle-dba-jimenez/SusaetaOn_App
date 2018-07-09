@@ -15,6 +15,7 @@ interface IntentPassIdentifiers {
     companion object {
         const val BOOK_COLLECTION = "book_collection"
         const val PDF_FILE_PATH = "android_app_context"
+        const val ENCRYPT_KEY   = "encrypt_key"
     }
 }
 

@@ -9,8 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import org.apache.commons.net.util.Base64;
 
-public class AESEncryptorParams
-implements Serializable {
+public class AESEncryptorParams implements Serializable {
     private static final long serialVersionUID = 5724753223179407669L;
     private static final String PASSWORD_REGEXP = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,16}$";
     public static final Pattern STRONG_PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEXP);

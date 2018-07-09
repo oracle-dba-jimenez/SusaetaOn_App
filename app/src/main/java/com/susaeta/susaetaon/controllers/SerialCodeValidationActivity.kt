@@ -25,9 +25,9 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         progressBar.visibility = ProgressBar.INVISIBLE
         val model = SerialCodeValidatorViewModel(this.baseContext)
 
-        if (serialEditText.text.isNullOrEmpty()) {
+      /*  if (serialEditText.text.isNullOrEmpty()) {
             validateButton.isEnabled = false
-        }
+        } */
 
         validateButton.setOnClickListener {
             if (Utilities.isNetworkAvailable(this.baseContext)) {
@@ -37,7 +37,6 @@ class SerialCodeValidationActivity : AppCompatActivity() {
                     if (it.count() > 0 ) {
                         val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
                         serialToLibraryTransitionIntent.putExtra(IntentPassIdentifiers.BOOK_COLLECTION, it as Serializable)
-
                         startActivity(serialToLibraryTransitionIntent)
                     } else {
                         this.displayError(ErrorMessage.INVALID_CODE_ESP)

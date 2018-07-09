@@ -1,35 +1,23 @@
 package com.susaeta.susaetaon.controllers
 
-import android.app.DownloadManager
-import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
-import android.graphics.LightingColorFilter
-import android.os.AsyncTask
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.Toast
 import com.susaeta.susaetaon.R
-import com.susaeta.susaetaon.R.color.green_button
 import com.susaeta.susaetaon.models.Book
-import com.susaeta.susaetaon.services.DownloadCompleteReceiver
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.viewModels.BookLibraryRecyclerViewAdapter
 import com.susaeta.susaetaon.viewModels.LibraryViewModel
 import kotlinx.android.synthetic.main.activity_library_collection.*
-import kotlinx.android.synthetic.main.activity_serial_code_validator.*
-import kotlinx.android.synthetic.main.fragment_item.*
 import kotlinx.android.synthetic.main.fragment_item.view.*
-import android.os.StrictMode
-
-
 
 class LibraryCollectionActivity : AppCompatActivity() {
 
@@ -73,12 +61,10 @@ class LibraryCollectionActivity : AppCompatActivity() {
 
         recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, object: ClickListener {
             override fun onClick(view: View, position: Int) {
-              //  view.progressBarOnThumbnail.visibility = View.VISIBLE
                 println("Download click tapped.")
                 broadcastReceiver = object: BroadcastReceiver(){
                     override fun onReceive(p0: Context?, p1: Intent?) {
                         view.downloadButton.visibility = View.INVISIBLE
-                   //     view.progressBarOnThumbnail.visibility = View.INVISIBLE
                     }
                 }
 
@@ -89,7 +75,8 @@ class LibraryCollectionActivity : AppCompatActivity() {
                 } else {
                     val displayDocumentViewer = Intent(this@LibraryCollectionActivity, DocumentViewerActivity::class.java )
                     displayDocumentViewer.putExtra(IntentPassIdentifiers.PDF_FILE_PATH,
-                            baseContext.filesDir.path + "/"+ listOfBooks.get(position).fileName )
+                            baseContext.filesDir.path + "/"+ listOfBooks[position].fileName )
+                    displayDocumentViewer.putExtra(IntentPassIdentifiers.ENCRYPT_KEY, listOfBooks[position].key)
                     startActivity(displayDocumentViewer)
                 }
             }}))

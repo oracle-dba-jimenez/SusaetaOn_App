@@ -2,11 +2,11 @@ package com.susaeta.susaetaon.controllers
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.ProgressBar
 import com.susaeta.susaetaon.R
+import com.susaeta.susaetaon.security.AESEncryptor
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import kotlinx.android.synthetic.main.activity_document_viewer.*
-import kotlinx.android.synthetic.main.activity_serial_code_validator.*
+import org.apache.commons.io.FileUtils
 import java.io.File
 
 class DocumentViewerActivity : AppCompatActivity() {
@@ -15,8 +15,12 @@ class DocumentViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document_viewer)
         val pdfUrlPath = intent.extras.get(IntentPassIdentifiers.PDF_FILE_PATH) as String
+        val keyEncryptation = intent.extras.get(IntentPassIdentifiers.ENCRYPT_KEY) as String
         println("Opening file...  $pdfUrlPath")
-        pdfView.fromFile(File(pdfUrlPath)).enableSwipe(true)
+
+        val dataFree = AESEncryptor.decryptFile(keyEncryptation, File(pdfUrlPath))
+        FileUtils.writeByteArrayToFile(File(pdfUrlPath.replace(".pdf", "_susaeta.pdf")), dataFree)
+        pdfView.fromFile(File(pdfUrlPath.replace(".pdf", "_susaeta.pdf"))).enableSwipe(true)
                 .swipeHorizontal(true)
                 .spacing(10)
                 .enableAntialiasing(true)

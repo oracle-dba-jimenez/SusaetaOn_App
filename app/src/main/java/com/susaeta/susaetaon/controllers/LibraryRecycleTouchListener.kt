@@ -18,7 +18,6 @@ class LibraryRecycleTouchListener(context: Context, var clickListener: ClickList
         if (child != null && gestureDetector.onTouchEvent(e)) {
             clickListener.onClick(child, rv.getChildAdapterPosition(child))
         }
-
         return false
     }
 
