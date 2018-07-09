@@ -7,7 +7,8 @@ data class Book (
         @SerializedName("articulo") val id: String,
         @SerializedName("nombre_portada") var thumbnailImageName: String,
         @SerializedName("nombre_archivo") var fileName: String,
-        @SerializedName("fecha_vence") var expirationDate: String) : Serializable
+        @SerializedName("fecha_vence") var expirationDate: String,
+        @SerializedName("key") var key: String?) : Serializable
 
 /**
  * Entire search result data class

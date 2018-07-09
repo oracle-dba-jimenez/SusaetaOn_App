@@ -25,12 +25,13 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         progressBar.visibility = ProgressBar.INVISIBLE
         val model = SerialCodeValidatorViewModel(this.baseContext)
 
-        //TODO Validar que el textEdit tenga texto para activar el button.
-
+        if (serialEditText.text.isNullOrEmpty()) {
+            validateButton.isEnabled = false
+        }
 
         validateButton.setOnClickListener {
             if (Utilities.isNetworkAvailable(this.baseContext)) {
-                model.validateSerial("L429OKT1XJBBB2R" /*serialEditText.text.toString()*/) {
+                model.validateSerial(serialEditText.text.toString()) {
                     progressBar.visibility = ProgressBar.VISIBLE
                     println("Collection books has $it.count()  books.")
                     if (it.count() > 0 ) {
