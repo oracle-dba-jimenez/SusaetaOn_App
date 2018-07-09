@@ -81,11 +81,17 @@ class LibraryCollectionActivity : AppCompatActivity() {
                             baseContext.filesDir.path + "/"+ listOfBooks.get(position).fileName )
                     startActivity(displayDocumentViewer)
                 }
-            }}))
+            }}
+        ))
     }
 
     override fun onDestroy() {
-        baseContext.unregisterReceiver(broadcastReceiver)
+        try {
+            baseContext.unregisterReceiver(broadcastReceiver)
+        }catch (ex: Exception){
+            println("Receiver not registered")
+        }
+
         super.onDestroy()
     }
 }
