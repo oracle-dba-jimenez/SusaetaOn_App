@@ -1,7 +1,6 @@
 package com.susaeta.susaetaon.services
 
 import android.content.Context
-import android.net.Uri
 import com.google.common.io.Files
 import com.susaeta.susaetaon.utils.Utilities
 import okhttp3.ResponseBody

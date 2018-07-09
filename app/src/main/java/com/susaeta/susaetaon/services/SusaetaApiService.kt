@@ -1,8 +1,8 @@
 package com.susaeta.susaetaon.services
 
+import com.susaeta.susaetaon.models.Result
 import com.susaeta.susaetaon.utils.GeneralConstants
 import io.reactivex.Observable
-import com.susaeta.susaetaon.models.Result
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Streaming
-import retrofit2.http.Url
 
 interface SusaetaApiService {
 

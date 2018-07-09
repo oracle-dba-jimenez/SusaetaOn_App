@@ -1,7 +1,5 @@
 package com.susaeta.susaetaon.utils
 
-import java.util.*
-
 interface GeneralConstants {
     companion object {
         const val BASE_REMOTE_URL = "http://susaetaon.com:8080/"

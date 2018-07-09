@@ -2,16 +2,11 @@ package com.susaeta.susaetaon.viewModels
 
 import android.content.Context
 import com.susaeta.susaetaon.models.Book
-import com.susaeta.susaetaon.services.FileManager
 import com.susaeta.susaetaon.services.SusaetaRepository
 import com.susaeta.susaetaon.services.SusaetaRepositoryProvider
 import com.susaeta.susaetaon.utils.ErrorMessage
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SerialCodeValidatorViewModel {
     private val context: Context
