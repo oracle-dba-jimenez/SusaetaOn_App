@@ -13,7 +13,6 @@ class DocumentViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document_viewer)
         val pdfUrlPath = intent.extras.get(IntentPassIdentifiers.PDF_FILE_PATH) as String
-
         println("Opening file...  $pdfUrlPath")
         pdfView.fromFile(File(pdfUrlPath)).enableSwipe(true)
                 .swipeHorizontal(true)

@@ -5,6 +5,7 @@ interface GeneralConstants {
         const val BASE_REMOTE_URL = "http://susaetaon.com:8080/"
         const val COLLECTION_INFO = "ords/susaetaon/archivos/coleccion/"
         const val BOOK_PATH = "libros/"
+        const val THUMBNAIL_PATH = BASE_REMOTE_URL + "portadas/"
     }
 }
 
