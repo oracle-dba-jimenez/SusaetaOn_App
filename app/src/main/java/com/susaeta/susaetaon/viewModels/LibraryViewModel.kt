@@ -37,12 +37,18 @@ class LibraryViewModel {
     }
 
     fun getBooksOnLocalFileSystem(): List<Book> {
+        val serializedBookLibrary = FileManager.readSerializedBookList(context)
         val bookList = arrayListOf<Book>()
         for (fileName in FileManager.findFileOnStorage(context).filter { book -> book.endsWith(".pdf")}) {
-            val thumbnailName = GeneralConstants.THUMBNAIL_PATH + fileName.replace(".pdf", ".png")
-            bookList.add(Book("1234", thumbnailName, fileName, "", null))
+            //val thumbnailName = GeneralConstants.THUMBNAIL_PATH + fileName.replace(".pdf", ".png")
+            for (book in serializedBookLibrary) {
+                if (book.fileName == fileName) {
+                    bookList.add(book)
+                }
+            }
         }
 
         return bookList
     }
 }
+

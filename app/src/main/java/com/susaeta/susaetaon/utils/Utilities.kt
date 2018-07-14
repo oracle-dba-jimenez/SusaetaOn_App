@@ -7,8 +7,7 @@ class Utilities {
     companion object {
         fun getNameFileFrom(url: String): String {
             val clearFileName = url.split('/')
-            val newFileName = clearFileName.get(clearFileName.count() - 1)
-            return newFileName
+            return clearFileName.get(clearFileName.count() - 1)
         }
 
         fun isNetworkAvailable(context: Context): Boolean {

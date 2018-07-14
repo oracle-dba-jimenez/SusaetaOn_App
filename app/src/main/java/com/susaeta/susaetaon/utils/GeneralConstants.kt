@@ -19,7 +19,6 @@ interface IntentPassIdentifiers {
 
 interface ErrorMessage {
     companion object {
-        const val CANT_DOWNLOAD_FILE = "Cant' download file, please check."
         const val INVALID_API_URL    = "Invalid path : "
         const val INVALID_CODE_ESP   = "El código proporcionado no es valido favor verificar."
     }
