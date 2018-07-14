@@ -2,11 +2,13 @@ package com.susaeta.susaetaon.controllers
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.appcompat.R.id.search_close_btn
 import android.support.v7.widget.SearchView
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -47,6 +49,7 @@ class DocumentViewerActivity : AppCompatActivity() {
         val searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as EditText
         searchEditText.setTextColor(Color.WHITE)
         searchEditText.setHintTextColor(Color.WHITE)
+        searchEditText.inputType = InputType.TYPE_CLASS_NUMBER
         searchEditText.hint = getString(search_hint)
 
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {

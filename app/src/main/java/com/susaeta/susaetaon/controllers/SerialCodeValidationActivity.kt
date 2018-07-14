@@ -14,6 +14,7 @@ import com.susaeta.susaetaon.utils.Utilities
 import com.susaeta.susaetaon.viewModels.SerialCodeValidatorViewModel
 import kotlinx.android.synthetic.main.activity_serial_code_validator.*
 import java.io.Serializable
+import java.util.*
 
 class SerialCodeValidationActivity : AppCompatActivity() {
 
@@ -24,23 +25,26 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         progressBar.visibility = ProgressBar.INVISIBLE
         val model = SerialCodeValidatorViewModel(this.baseContext)
 
-        //TODO Validar que el textEdit tenga texto para activar el button.
-
+        var currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        currentYear = if (Calendar.getInstance().get(Calendar.MONTH) > 8) currentYear + 1 else  currentYear
+        schoolarshipYear.text =  (currentYear - 1 ).toString() + " - " + currentYear
 
         validateButton.setOnClickListener {
             if (Utilities.isNetworkAvailable(this.baseContext)) {
-                model.validateSerial("L429OKT1XJBBB2R" /*serialEditText.text.toString()*/) {
-                    progressBar.visibility = ProgressBar.VISIBLE
-                    println("Collection books has $it.count()  books.")
-                    if (it.count() > 0 ) {
-                        val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
-                        serialToLibraryTransitionIntent.putExtra(IntentPassIdentifiers.BOOK_COLLECTION, it as Serializable)
-
-                        startActivity(serialToLibraryTransitionIntent)
-                    } else {
-                        this.displayError(ErrorMessage.INVALID_CODE_ESP)
+                if (serialEditText.text.isNotEmpty()) {
+                    model.validateSerial(serialEditText.text.toString()) {
+                        progressBar.visibility = ProgressBar.VISIBLE
+                        println("Collection books has $it.count()  books.")
+                        if (it.count() > 0 ) {
+                            val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
+                            serialToLibraryTransitionIntent.putExtra(IntentPassIdentifiers.BOOK_COLLECTION, it as Serializable)
+                            serialEditText.text.clear()
+                            startActivity(serialToLibraryTransitionIntent)
+                        } else {
+                            this.displayError(ErrorMessage.INVALID_CODE_ESP)
+                        }
+                        progressBar.visibility = ProgressBar.INVISIBLE
                     }
-                    progressBar.visibility = ProgressBar.INVISIBLE
                 }
             } else {
                 displayError(getString(R.string.network_unavailable))
