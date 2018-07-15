@@ -38,7 +38,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
 
         viewModel = LibraryViewModel(baseContext)
-        listOfBooks = intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>
+        listOfBooks = (intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>).distinct()
 
         var spanCountColumns = 3
         if (resources.configuration.orientation  == Configuration.ORIENTATION_LANDSCAPE) {
@@ -47,7 +47,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
 
         val gridLayout = GridLayoutManager(baseContext, spanCountColumns)
         viewManager = gridLayout
-        viewAdapter = BookLibraryRecyclerViewAdapter(listOfBooks, null, baseContext)
+        viewAdapter = BookLibraryRecyclerViewAdapter(listOfBooks.distinct(), null, baseContext)
 
         recyclerView = my_recycler_view.apply {
             setHasFixedSize(true)

@@ -36,14 +36,10 @@ class FileManager {
        fun saveSerializedBookList(context: Context, books: List<Book>) {
            //Check if exist a previous list for append
            val previousList = readSerializedBookList(context)
-
-           if (previousList.count() > 0 ) {
-               previousList += books
-           }
-
+           previousList += books
            val file = File(context.filesDir.path, Utilities.getNameFileFrom("library_books.data"))
            ObjectOutputStream(FileOutputStream(file)).use {
-               it.writeObject(books)
+               it.writeObject(previousList)
            }
        }
 
