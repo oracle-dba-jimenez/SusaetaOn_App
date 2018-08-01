@@ -1,5 +1,6 @@
 package com.susaeta.susaetaon.controllers
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -28,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         verifyYearSchoolForRemoveOldBooks()
+
+        @SuppressLint("SetTextI18n")
+        schoolarshipYear.text = (schoolYear()-1).toString() + " - " + schoolYear().toString()
 
         validateCodeButton.setOnClickListener {
             val goToLibraryIntent = Intent(this@MainActivity, SerialCodeValidationActivity::class.java)

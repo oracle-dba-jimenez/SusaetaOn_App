@@ -1,5 +1,6 @@
 package com.susaeta.susaetaon.controllers
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -19,6 +20,7 @@ import java.util.*
 
 class SerialCodeValidationActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_serial_code_validator)
@@ -26,9 +28,8 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         progressBar.visibility = ProgressBar.INVISIBLE
         val model = SerialCodeValidatorViewModel(this.baseContext)
 
-        var currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        currentYear = if (Calendar.getInstance().get(Calendar.MONTH) > 8) currentYear + 1 else  currentYear
-        schoolarshipYear.text =  (currentYear - 1 ).toString() + " - " + currentYear
+        @SuppressLint("SetTextI18n")
+        schoolarshipYear.text = (schoolYear()-1).toString() + " - " + schoolYear().toString()
 
         validateButton.setOnClickListener {
             if (Utilities.isNetworkAvailable(this.baseContext)) {
@@ -63,5 +64,13 @@ class SerialCodeValidationActivity : AppCompatActivity() {
         toast.view.setBackgroundColor(Color.RED)
         toast.view.setPadding(35, 5, 35, 4)
         toast.show()
+    }
+
+    private fun schoolYear(): Int {
+        var currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        if (Calendar.getInstance().get(Calendar.MONTH)+ 1 >= 8){
+            currentYear += 1
+        }
+        return currentYear
     }
 }
