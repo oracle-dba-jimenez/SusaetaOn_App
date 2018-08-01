@@ -14,4 +14,9 @@ class SusaetaRepository(val apiService: SusaetaApiService) {
     fun downloadPDFFromServer(fileName: String): Call<ResponseBody> {
         return apiService.downloadPDFFromServer(fileName)
     }
+
+    fun closeBook(fileName: String, serial: String): Call<ResponseBody> {
+        println("Closing the file send the request.")
+        return apiService.closeBookAfterDownloaded(fileName, serial)
+    }
 }

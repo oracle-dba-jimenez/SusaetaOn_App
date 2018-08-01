@@ -8,16 +8,12 @@ import android.view.Gravity
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.susaeta.susaetaon.R
-import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.services.FileManager
 import com.susaeta.susaetaon.utils.ErrorMessage
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import com.susaeta.susaetaon.utils.Utilities
 import com.susaeta.susaetaon.viewModels.SerialCodeValidatorViewModel
 import kotlinx.android.synthetic.main.activity_serial_code_validator.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.*
 
@@ -46,6 +42,7 @@ class SerialCodeValidationActivity : AppCompatActivity() {
                         if (it.count() > 0 ) {
                             val serialToLibraryTransitionIntent = Intent(this@SerialCodeValidationActivity, LibraryCollectionActivity::class.java)
                             serialToLibraryTransitionIntent.putExtra(IntentPassIdentifiers.BOOK_COLLECTION, it as Serializable)
+                            serialToLibraryTransitionIntent.putExtra(IntentPassIdentifiers.SERIAL_CODE, serialEditText.text.toString())
                             serialEditText.text.clear()
                             startActivity(serialToLibraryTransitionIntent)
                         } else {

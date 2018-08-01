@@ -89,6 +89,7 @@
         android:layout_marginTop="60dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:text="0LSJODYW71501Q5"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"

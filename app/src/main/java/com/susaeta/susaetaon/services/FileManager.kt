@@ -24,8 +24,8 @@ class FileManager {
        }
 
        fun removeAllFileFromStorage(context: Context): Boolean{
-           for (file in findFileOnStorage(context).
-                   filter { pdf -> pdf.contains(".pdf", true) }) {
+           for (file in findFileOnStorage(context)/*.
+                   filter { pdf -> pdf.contains(".pdf", true) }*/) {
                val localFile = File(context.filesDir.path+ "/" + file)
                println("removing file $file result::" + localFile.delete())
            }

@@ -63,6 +63,8 @@ class LibraryCollectionActivity : AppCompatActivity() {
                 broadcastReceiver = object: BroadcastReceiver(){
                     override fun onReceive(p0: Context?, p1: Intent?) {
                         view.downloadButton.visibility = View.INVISIBLE
+                        val serialCode =  intent.extras.get(IntentPassIdentifiers.SERIAL_CODE) as String
+                        viewModel.closeBook(bookName = listOfBooks[position].fileName, serial = serialCode)
                     }
                 }
 

@@ -29,10 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         verifyYearSchoolForRemoveOldBooks()
 
-        var currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        currentYear = if (Calendar.getInstance().get(Calendar.MONTH) > 8) currentYear + 1 else  currentYear
-        schoolarshipYear.text =  (currentYear - 1 ).toString() + " - " + currentYear
-
         validateCodeButton.setOnClickListener {
             val goToLibraryIntent = Intent(this@MainActivity, SerialCodeValidationActivity::class.java)
             startActivity(goToLibraryIntent)
@@ -46,20 +42,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun verifyYearSchoolForRemoveOldBooks() {
+        println(FileManager.findFileOnStorage(baseContext))
+
         // Verify exist a configuration file.
         val fileConfig = FileManager.findFileOnStorage(baseContext).filter { file ->
-            file.contains(Calendar.getInstance().get(Calendar.YEAR).toString())
+            file.contains(schoolYear().toString() + ".config")
         }
-        if (fileConfig.count() > 0) {
-            if (Calendar.getInstance().get(Calendar.MONTH) > 8) { // If the current month is after August
+
+        if (fileConfig.count() ==  0) {
+            if (Calendar.getInstance().get(Calendar.MONTH) + 1 >= 8) { // If the current month is after August
                 //Remove all books if is the next school year
                 println("New schools year delete file: " + FileManager.removeAllFileFromStorage(baseContext))
-                val file = File(baseContext.filesDir.path, Calendar.getInstance().get(Calendar.YEAR).toString() + ".config")
+                val file = File(baseContext.filesDir.path, schoolYear().toString() + ".config")
                 file.createNewFile()
             }
-        } else { // If no exist a configuration file create one to current year.
-            val file = File(baseContext.filesDir.path,  Calendar.getInstance().get(Calendar.YEAR).toString() + ".config")
-            file.createNewFile()
         }
+    }
+
+    private fun schoolYear(): Int {
+        var currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        if (Calendar.getInstance().get(Calendar.MONTH)+ 1 >= 8){
+            currentYear += 1
+        }
+        return currentYear
     }
 }

@@ -40,7 +40,6 @@ class LibraryViewModel {
         val serializedBookLibrary = FileManager.readSerializedBookList(context)
         val bookList = arrayListOf<Book>()
         for (fileName in FileManager.findFileOnStorage(context).filter { book -> book.endsWith(".pdf")}) {
-            //val thumbnailName = GeneralConstants.THUMBNAIL_PATH + fileName.replace(".pdf", ".png")
             for (book in serializedBookLibrary) {
                 if (book.fileName == fileName) {
                     bookList.add(book)
@@ -49,6 +48,11 @@ class LibraryViewModel {
         }
 
         return bookList
+    }
+
+    fun closeBook(bookName: String, serial: String) {
+        val response = repository.closeBook(bookName.replace(".pdf", ""), serial).execute().body()
+        println("Closing response: $response")
     }
 }
 

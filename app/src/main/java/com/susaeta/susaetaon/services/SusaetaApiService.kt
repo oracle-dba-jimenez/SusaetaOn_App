@@ -33,4 +33,9 @@ interface SusaetaApiService {
     @GET(GeneralConstants.BOOK_PATH + "{fileName}")
     @Streaming
     fun downloadPDFFromServer(@Path(value = "fileName", encoded = true) fileName: String): Call<ResponseBody>
+
+
+    @GET(GeneralConstants.CLOSE_BOOK + "{fileName}" + ",{serial}")
+    fun closeBookAfterDownloaded(@Path(value = "fileName", encoded = true) fileName: String,
+                                 @Path(value = "serial", encoded = true) serial: String): Call<ResponseBody>
 }
