@@ -37,7 +37,7 @@ class LibraryViewModel {
                     uiThread {
                         downloadButton.visibility = View.INVISIBLE
                         println("book name: $name, serialCode: $serialCode")
-                        //closeBook(bookName = name, serial = serialCode)
+                        closeBook(bookName = name, serial = serialCode)
                     }
                 }
             }
