@@ -1,13 +1,15 @@
 package com.susaeta.susaetaon.viewModels
 
 import android.content.Context
-import android.content.Intent
+import android.view.View
+import android.widget.Button
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.services.FileManager
 import com.susaeta.susaetaon.services.SusaetaRepository
 import com.susaeta.susaetaon.services.SusaetaRepositoryProvider
-import com.susaeta.susaetaon.utils.GeneralConstants
 import okhttp3.ResponseBody
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +23,7 @@ class LibraryViewModel {
         this.repository = SusaetaRepositoryProvider.searchRepository()
     }
 
-    fun downloadServerFile(name: String) {
+    fun downloadServerFile(name: String, downloadButton: Button, serialCode: String) {
 
         repository.downloadPDFFromServer(name).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
@@ -30,8 +32,14 @@ class LibraryViewModel {
 
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
                 println("Downloading....")
-                FileManager.saveFileOnDevice(context.filesDir.path, name, response)
-                context.sendBroadcast(Intent("Downloaded"))
+                doAsync {
+                    FileManager.saveFileOnDevice(context.filesDir.path, name, response)
+                    uiThread {
+                        downloadButton.visibility = View.INVISIBLE
+                        println("book name: $name, serialCode: $serialCode")
+                        closeBook(bookName = name, serial = serialCode)
+                    }
+                }
             }
         })
     }
@@ -51,6 +59,7 @@ class LibraryViewModel {
     }
 
     fun closeBook(bookName: String, serial: String) {
+        println("Closing book...")
         val response = repository.closeBook(bookName.replace(".pdf", ""), serial).execute().body()
         println("Closing response: $response")
     }

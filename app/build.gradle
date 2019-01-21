@@ -62,5 +62,5 @@ dependencies {
     implementation 'commons-net:commons-net:3.6'
     implementation 'commons-io:commons-io:2.6'
 
-    //Entiendo que las opciones de REST / JSON hoy en día por el auge de los desarrollos móviles impulsa obtiene menos tiempo de procesamiento. Pero fuera de la facilidad de consumo (que es algo subjetivo)
+    implementation "org.jetbrains.anko:anko-commons:0.10.5"
 }

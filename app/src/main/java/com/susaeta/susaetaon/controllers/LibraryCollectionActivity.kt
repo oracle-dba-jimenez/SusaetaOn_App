@@ -1,9 +1,6 @@
 package com.susaeta.susaetaon.controllers
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.StrictMode
@@ -27,7 +24,6 @@ class LibraryCollectionActivity : AppCompatActivity() {
 
     lateinit var listOfBooks: List<Book>
     lateinit var viewModel: LibraryViewModel
-    lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,22 +52,13 @@ class LibraryCollectionActivity : AppCompatActivity() {
         }
 
         //TODO: Intentar sacar este listener de aqui y delegar esta responsabilidad.
-
         recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, object: ClickListener {
             override fun onClick(view: View, position: Int) {
-                println("Download click tapped.")
-                broadcastReceiver = object: BroadcastReceiver(){
-                    override fun onReceive(p0: Context?, p1: Intent?) {
-                        view.downloadButton.visibility = View.INVISIBLE
-                        val serialCode =  intent.extras.get(IntentPassIdentifiers.SERIAL_CODE) as String
-                        viewModel.closeBook(bookName = listOfBooks[position].fileName, serial = serialCode)
-                    }
-                }
-
                 if (view.downloadButton.visibility == View.VISIBLE) {
-                    baseContext.registerReceiver(broadcastReceiver, IntentFilter("Downloaded"))
-                    viewModel.downloadServerFile(listOfBooks[position].fileName)
+                    val serialCode =  intent.extras.get(IntentPassIdentifiers.SERIAL_CODE) as String
+                    viewModel.downloadServerFile(listOfBooks[position].fileName, view.downloadButton, serialCode)
                     view.downloadButton.text = getString(R.string.downloading_progress_message)
+
                 } else {
                     val displayDocumentViewer = Intent(this@LibraryCollectionActivity, DocumentViewerActivity::class.java )
                     displayDocumentViewer.putExtra(IntentPassIdentifiers.PDF_FILE_PATH,
@@ -81,16 +68,6 @@ class LibraryCollectionActivity : AppCompatActivity() {
                 }
             }}
         ))
-    }
-
-    override fun onDestroy() {
-        try {
-            baseContext.unregisterReceiver(broadcastReceiver)
-        }catch (ex: Exception){
-            println("Receiver not registered")
-        }
-
-        super.onDestroy()
     }
 }
 

@@ -2,6 +2,7 @@ package com.susaeta.susaetaon.controllers
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -33,13 +34,21 @@ class DocumentViewerActivity : AppCompatActivity() {
         println("Opening file...  $pdfUrlPath")
 
         val dataFree = AESEncryptor.decryptFile(keyEncryptation, File(pdfUrlPath))
-        FileUtils.writeByteArrayToFile(File(pdfUrlPath.replace(".pdf", ".susaeta")), dataFree)
-        pdfView.fromFile(File(pdfUrlPath.replace(".pdf", ".susaeta"))).enableSwipe(true)
-                .swipeHorizontal(true)
-                .spacing(10)
-                .defaultPage(0)
-                .enableAntialiasing(true)
-                .load()
+
+        if (dataFree.isEmpty()) {
+            println("File corrupted.!")
+            File(pdfUrlPath).delete()
+            startActivity(Intent(this@DocumentViewerActivity, LibraryCollectionActivity::class.java))
+        } else {
+            FileUtils.writeByteArrayToFile(File(pdfUrlPath.replace(".pdf", ".susaeta")), dataFree)
+            pdfView.fromFile(File(pdfUrlPath.replace(".pdf", ".susaeta"))).enableSwipe(true)
+                    .swipeHorizontal(true)
+                    .spacing(10)
+                    .defaultPage(0)
+                    .enableAntialiasing(true)
+                    .load()
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
