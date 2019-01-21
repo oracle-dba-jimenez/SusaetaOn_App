@@ -2,7 +2,7 @@ package com.susaeta.susaetaon.utils
 
 interface GeneralConstants {
     companion object {
-        const val BASE_REMOTE_URL = "http://susaetaon.com:8080/"
+        const val BASE_REMOTE_URL = "https://susaetaon.com:8181/"
         const val COLLECTION_INFO = "ords/susaetaon/archivos/coleccion/"
         const val CLOSE_BOOK = "ords/susaetaon/archivos/postear/"
         const val BOOK_PATH = "libros/"
