@@ -10,8 +10,8 @@ android {
         applicationId "com.susaeta.susaetaon"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 12
-        versionName "0.5.1"
+        versionCode 13
+        versionName "0.5.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
