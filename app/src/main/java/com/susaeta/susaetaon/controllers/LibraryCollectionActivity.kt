@@ -4,9 +4,9 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.StrictMode
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
@@ -34,7 +34,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
 
         viewModel = LibraryViewModel(baseContext)
-        listOfBooks = (intent.extras.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>).distinct()
+        listOfBooks = (intent.extras?.get(IntentPassIdentifiers.BOOK_COLLECTION) as List<Book>).distinct()
 
         var spanCountColumns = 3
         if (resources.configuration.orientation  == Configuration.ORIENTATION_LANDSCAPE) {
@@ -55,7 +55,7 @@ class LibraryCollectionActivity : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(LibraryRecycleTouchListener(baseContext, object: ClickListener {
             override fun onClick(view: View, position: Int) {
                 if (view.downloadButton.visibility == View.VISIBLE) {
-                    val serialCode =  intent.extras.get(IntentPassIdentifiers.SERIAL_CODE) as String
+                    val serialCode =  intent.extras?.get(IntentPassIdentifiers.SERIAL_CODE) as String
                     viewModel.downloadServerFile(listOfBooks[position].fileName, view.downloadButton, serialCode)
                     view.downloadButton.text = getString(R.string.downloading_progress_message)
 

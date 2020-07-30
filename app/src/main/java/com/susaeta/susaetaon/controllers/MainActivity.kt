@@ -3,7 +3,7 @@ package com.susaeta.susaetaon.controllers
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.susaeta.susaetaon.R
 import com.susaeta.susaetaon.models.Book
 import com.susaeta.susaetaon.services.FileManager

@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.appcompat.R.id.search_close_btn
-import android.support.v7.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.R.id.search_close_btn
+import androidx.appcompat.widget.SearchView
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -29,8 +29,8 @@ class DocumentViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document_viewer)
         setSupportActionBar(toolbar)
-        val keyEncryptation = intent.extras.get(IntentPassIdentifiers.ENCRYPT_KEY) as String
-        pdfUrlPath = intent.extras.get(IntentPassIdentifiers.PDF_FILE_PATH) as String
+        val keyEncryptation = intent.extras?.get(IntentPassIdentifiers.ENCRYPT_KEY) as String
+        pdfUrlPath = intent.extras?.get(IntentPassIdentifiers.PDF_FILE_PATH) as String
         println("Opening file...  $pdfUrlPath")
 
         val dataFree = AESEncryptor.decryptFile(keyEncryptation, File(pdfUrlPath))
@@ -72,7 +72,7 @@ class DocumentViewerActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrEmpty()) {
-                    val goToPage = newText!!.toInt()
+                    val goToPage = newText.toInt()
                     return if (pdfView.pageCount >= goToPage) {
                         pdfView.jumpTo(goToPage, true)
                         true

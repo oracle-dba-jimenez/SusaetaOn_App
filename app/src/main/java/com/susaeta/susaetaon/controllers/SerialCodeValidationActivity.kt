@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -61,8 +61,8 @@ class SerialCodeValidationActivity : AppCompatActivity() {
     private fun displayError(message: String) {
         val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
         toast.setGravity(Gravity.TOP, 10, 30)
-        toast.view.setBackgroundColor(Color.RED)
-        toast.view.setPadding(35, 5, 35, 4)
+        toast.view?.setBackgroundColor(Color.RED)
+        toast.view?.setPadding(35, 5, 35, 4)
         toast.show()
     }
 
