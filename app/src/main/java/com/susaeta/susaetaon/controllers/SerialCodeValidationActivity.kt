@@ -19,8 +19,6 @@ import java.io.Serializable
 import java.util.*
 
 class SerialCodeValidationActivity : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_serial_code_validator)

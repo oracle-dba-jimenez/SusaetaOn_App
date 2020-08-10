@@ -21,7 +21,20 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         localBooks = LibraryViewModel(baseContext).getBooksOnLocalFileSystem()
-        goToLibraryButton.isEnabled = !localBooks.isEmpty()
+        setupStateLibraryButton()
+    }
+
+    private fun setupStateLibraryButton() {
+        when {
+            localBooks.isNotEmpty() -> {
+                goToLibraryButton.isEnabled = true
+                goToLibraryButton.alpha = 1f
+            }
+            else -> {
+                goToLibraryButton.isEnabled = false
+                goToLibraryButton.alpha = 0.5f
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

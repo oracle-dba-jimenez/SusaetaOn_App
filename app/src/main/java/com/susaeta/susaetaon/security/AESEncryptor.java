@@ -78,7 +78,7 @@ public class AESEncryptor {
             IvParameterSpec iv = new IvParameterSpec(initVector);
             SecretKeySpec skeySpec = new SecretKeySpec(key, SECRET_KEY_SPEC_NAME);
             Cipher cipher = Cipher.getInstance(CIPHER_NAME);
-            cipher.init(2, (Key)skeySpec, iv);
+            cipher.init(Cipher.DECRYPT_MODE, (Key)skeySpec, iv);
             byte[] original = cipher.doFinal(encrypted);
             return original;
         }

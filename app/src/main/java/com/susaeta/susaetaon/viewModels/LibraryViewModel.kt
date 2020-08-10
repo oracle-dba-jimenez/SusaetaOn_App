@@ -13,6 +13,7 @@ import org.jetbrains.anko.uiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class LibraryViewModel {
     private val repository: SusaetaRepository
@@ -33,11 +34,15 @@ class LibraryViewModel {
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
                 println("Downloading....")
                 doAsync {
-                    FileManager.saveFileOnDevice(context.filesDir.path, name, response)
-                    uiThread {
-                        downloadButton.visibility = View.INVISIBLE
-                        println("book name: $name, serialCode: $serialCode")
-                        closeBook(bookName = name, serial = serialCode)
+                    if (response!!.isSuccessful) {
+                        FileManager.saveFileOnDevice(context.filesDir.path, name, response)
+                        uiThread {
+                            downloadButton.visibility = View.INVISIBLE
+                            println("book name: $name, serialCode: $serialCode")
+                            closeBook(bookName = name, serial = serialCode)
+                        }
+                    } else {
+                        println("File not found.")
                     }
                 }
             }
@@ -47,7 +52,7 @@ class LibraryViewModel {
     fun getBooksOnLocalFileSystem(): List<Book> {
         val serializedBookLibrary = FileManager.readSerializedBookList(context)
         val bookList = arrayListOf<Book>()
-        for (fileName in FileManager.findFileOnStorage(context).filter { book -> book.endsWith(".pdf")}) {
+        for (fileName in FileManager.findFileOnStorage(context).filter { book -> book.toLowerCase(Locale.ROOT).endsWith(".pdf")}) {
             for (book in serializedBookLibrary) {
                 if (book.fileName == fileName) {
                     bookList.add(book)
@@ -60,7 +65,7 @@ class LibraryViewModel {
 
     fun closeBook(bookName: String, serial: String) {
         println("Closing book...")
-        val response = repository.closeBook(bookName.replace(".pdf", ""), serial).execute().body()
+        val response = repository.closeBook(bookName.toLowerCase(Locale.ROOT).replace(".pdf", ""), serial).execute().body()
         println("Closing response: $response")
     }
 }

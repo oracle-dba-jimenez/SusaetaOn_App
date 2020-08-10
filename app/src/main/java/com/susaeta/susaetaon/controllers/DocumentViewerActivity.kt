@@ -5,22 +5,25 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.R.id.search_close_btn
-import androidx.appcompat.widget.SearchView
 import android.text.InputType
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.R.id.search_close_btn
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import com.susaeta.susaetaon.R
-import com.susaeta.susaetaon.security.AESEncryptor
 import com.susaeta.susaetaon.R.id.app_bar_search
 import com.susaeta.susaetaon.R.string.search_hint
-import org.apache.commons.io.FileUtils
+import com.susaeta.susaetaon.security.AESEncryptor
 import com.susaeta.susaetaon.utils.IntentPassIdentifiers
 import kotlinx.android.synthetic.main.activity_document_viewer.*
+import org.apache.commons.io.FileUtils
 import java.io.File
+import java.io.IOException
+import java.util.*
 
 class DocumentViewerActivity : AppCompatActivity() {
 
@@ -40,15 +43,23 @@ class DocumentViewerActivity : AppCompatActivity() {
             File(pdfUrlPath).delete()
             startActivity(Intent(this@DocumentViewerActivity, LibraryCollectionActivity::class.java))
         } else {
-            FileUtils.writeByteArrayToFile(File(pdfUrlPath.replace(".pdf", ".susaeta")), dataFree)
-            pdfView.fromFile(File(pdfUrlPath.replace(".pdf", ".susaeta"))).enableSwipe(true)
-                    .swipeHorizontal(true)
-                    .spacing(10)
-                    .defaultPage(0)
-                    .enableAntialiasing(true)
-                    .load()
+            try {
+                FileUtils.writeByteArrayToFile(File(pdfUrlPath.toLowerCase(Locale.ROOT).replace(".pdf", ".susaeta")), dataFree)
+                pdfView.fromFile(File(pdfUrlPath.toLowerCase(Locale.ROOT).replace(".pdf", ".susaeta"))).enableSwipe(true)
+                        .swipeHorizontal(true)
+                        .spacing(10)
+                        .defaultPage(0)
+                        .enableAntialiasing(true)
+                        .load()
+            } catch(e: IOException ) {
+                Log.d("Exception ", e.message.toString());
+            }
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        File(pdfUrlPath.toLowerCase(Locale.ROOT).replace(".pdf", ".susaeta")).delete()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
